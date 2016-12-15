@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Sun Dec 11 19:28:08 2016 
-## Last update Wed Dec 14 11:42:31 2016 
+## Last update Thu Dec 15 16:08:10 2016 
 ##
 
 SRC	=	SRC/main.c		\
@@ -36,7 +36,7 @@ NAME	=	my_sokoban
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-		gcc -lncurses -o $(NAME) $(OBJ)
+		gcc -o $(NAME) $(OBJ) -lncurses
 
 clean:
 		rm -f $(OBJ)
