@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Fri Dec 16 12:33:11 2016 
-** Last update Sun Dec 18 03:46:30 2016 
+** Last update Sun Dec 18 15:03:32 2016 
 */
 
 #include	<stdlib.h>
@@ -66,7 +66,15 @@ void	ini_souris()
 
 void		ini_all(int idx)
 {
+  initscr();
   curs_set(FALSE);
+  if (has_colors() == FALSE)
+    exit(84);
+  start_color();
+  init_pair(1, COLOR_RED, COLOR_BLACK);
+  init_pair(2, COLOR_GREEN, COLOR_BLACK);
+  init_pair(4, COLOR_BLUE, COLOR_BLACK);
+  init_pair(6, COLOR_CYAN, COLOR_BLACK);
   noecho();
   keypad(stdscr, TRUE);
   scrollok(stdscr, TRUE);

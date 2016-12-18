@@ -5,7 +5,7 @@
 ## Login   <martin.januario@epitech.eu>
 ## 
 ## Started on  Sun Dec 11 19:28:08 2016 
-## Last update Sun Dec 18 04:14:12 2016 
+## Last update Sun Dec 18 14:38:20 2016 
 ##
 
 SRC	=	SRC/main.c		\
@@ -18,6 +18,7 @@ SRC	=	SRC/main.c		\
 		SRC/souris.c		\
 		SRC/loading.c		\
 		SRC/int_to_str.c	\
+		SRC/display_map.c	\
 		SRC/my_put_nbr.c	\
 		SRC/music.c		\
 		SRC/disp_help.c		\

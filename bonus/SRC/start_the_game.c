@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Dec 12 17:40:37 2016 
-** Last update Sun Dec 18 05:37:55 2016 
+** Last update Sun Dec 18 15:27:42 2016 
 */
 
 #include	<SFML/Audio.h>
@@ -80,7 +80,6 @@ void		disp_error(int tmp, int idc, int cpt, int cpt_tmp)
 
 int		start_the_loop(t_coo *coo_map, char **map, int tmp, int idx)
 {
-
   while (42)
     {
       idx = 0;
@@ -90,19 +89,16 @@ int		start_the_loop(t_coo *coo_map, char **map, int tmp, int idx)
       if (check_block(coo_map, map) == 1)
 	return (1);
       if (coo_map->lenght <= COLS && coo_map->nb_ligne <= LINES)
-	while (map[idx] != NULL)
-	  {
-	    mvprintw((LINES / 2 + idx) - (coo_map->nb_ligne / 2),
-		     (COLS / 2) - (coo_map->lenght / 2), map[idx]);
-	    idx++;
-	  }
+	{
+	  display_map(map, coo_map);
+	  idx++;
+	}
       else
 	disp_error(0, 0, 0, 0);
       refresh();
       if ((tmp = getch()) != 410)
-	tmp = gest_key(coo_map, map, tmp);
-      if (tmp == -1)
-	return (2);
+	if ((tmp = gest_key(coo_map, map, tmp)) == -1)
+	  return (2);
     }
   return (0);
 }
@@ -114,7 +110,6 @@ int		start_the_game(t_coo *coo_map, char **map, int idx)
   int		tmp;
   int		tmp_time;
 
-  window = initscr();
   ini_all(idx);
   music = start_music("music/sound.ogg");
   tmp_time = time(NULL);

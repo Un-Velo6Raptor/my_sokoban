@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Dec 11 19:51:44 2016 
-** Last update Sun Dec 18 05:25:47 2016 
+** Last update Sun Dec 18 15:05:26 2016 
 */
 
 #ifndef MY_H_
@@ -15,6 +15,7 @@
 #include	"sokoban.h"
 
 sfMusic	*start_music(char *);
+void	display_map(char **, t_coo *);
 int	my_put_nbr(int);
 void	print_end(int, int, int, int);
 void	ini_all(int);

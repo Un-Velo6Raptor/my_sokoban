@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Thu Dec 15 22:29:59 2016 
-** Last update Sun Dec 18 05:31:31 2016 
+** Last update Sun Dec 18 15:06:53 2016 
 */
 
 #include	<unistd.h>
@@ -28,6 +28,7 @@ void		print_end(int check, int idx, int temps, int touch)
 
 void		loading_next(int idx, int idx2, int tmp)
 {
+  attron(A_BOLD | COLOR_PAIR(2));
   while (idx <= 10)
     {
       refresh();
@@ -45,6 +46,7 @@ void		loading_next(int idx, int idx2, int tmp)
       mvprintw((LINES / 2 - 1), idx2, "#");
       idx2++;
     }
+  attroff(A_NORMAL | COLOR_PAIR(2));
   refresh();
   usleep(500000);
 }
@@ -61,8 +63,10 @@ void		loading(int nb)
   clear();
   music = start_music("music/loading.ogg");
   tmp2 = int_to_str(nb);
+  attron(A_BOLD);
   mvprintw((LINES / 2 - 3), (COLS / 2) - 12, "Chargement de la map : ");
   mvprintw((LINES / 2 - 3), (COLS / 2) + 12, tmp2);
+  attroff(A_NORMAL);
   while (idx < COLS)
     {
       mvprintw((LINES / 2 - 2), idx, "-");
