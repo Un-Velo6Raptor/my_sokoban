@@ -5,16 +5,25 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Dec 12 17:40:37 2016 
-** Last update Sun Dec 18 06:12:12 2016 
+** Last update Sun Dec 18 05:37:55 2016 
 */
 
+#include	<SFML/Audio.h>
 #include	<ncurses.h>
+#include	<stdio.h>
+#include	<stdlib.h>
+#include	<time.h>
 #include	"my.h"
 #include	"sokoban.h"
 
 int		gest_key(t_coo *coo_map, char **map, int tmp)
 {
-  if (tmp == KEY_LEFT)
+  int		mouse_x;
+  int		mouse_y;
+
+  if (recup_souris(&mouse_x, &mouse_y) == OK)
+    check_pos_mouse(mouse_x, mouse_y, coo_map, map);
+  else if (tmp == KEY_LEFT)
     p_left(coo_map, &map);
   else if (tmp == KEY_RIGHT)
     p_right(coo_map, &map);
@@ -71,12 +80,15 @@ void		disp_error(int tmp, int idc, int cpt, int cpt_tmp)
 
 int		start_the_loop(t_coo *coo_map, char **map, int tmp, int idx)
 {
+
   while (42)
     {
       idx = 0;
       clear();
       if (check_finish(coo_map, map) == 0)
 	return (0);
+      if (check_block(coo_map, map) == 1)
+	return (1);
       if (coo_map->lenght <= COLS && coo_map->nb_ligne <= LINES)
 	while (map[idx] != NULL)
 	  {
@@ -95,23 +107,30 @@ int		start_the_loop(t_coo *coo_map, char **map, int tmp, int idx)
   return (0);
 }
 
-int		start_the_game(t_coo *coo_map, char **map)
+int		start_the_game(t_coo *coo_map, char **map, int idx)
 {
   WINDOW	*window;
+  sfMusic	*music;
   int		tmp;
+  int		tmp_time;
 
   window = initscr();
-  curs_set(FALSE);
-  noecho();
-  keypad(stdscr, TRUE);
+  ini_all(idx);
+  music = start_music("music/sound.ogg");
+  tmp_time = time(NULL);
   while ((tmp = start_the_loop(coo_map, map, 0, 0)) != 0 && tmp != 1)
     {
+      sfMusic_stop(music);
+      loading(idx);
       free_tab(map);
       map = recup_map(coo_map);
       if (map == NULL)
 	return (84);
       ini_struct(coo_map, map);
+      music = start_music("music/sound.ogg");
     }
   endwin();
+  sfMusic_destroy(music);
+  print_end(tmp, idx, time(NULL) - tmp_time, coo_map->nb_touch);
   return (tmp);
 }

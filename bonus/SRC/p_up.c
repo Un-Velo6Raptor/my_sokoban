@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Dec 12 22:02:12 2016 
-** Last update Thu Dec 15 16:38:04 2016 
+** Last update Sun Dec 18 05:14:01 2016 
 */
 
 #include	"my.h"
@@ -25,6 +25,8 @@ int	p_up_next(t_coo *coo_map, char ***map)
   (*map)[coo_map->player_y - 1][coo_map->player_x] = 'P';
   (*map)[coo_map->player_y][coo_map->player_x] = car_tmp;
   coo_map->player_y--;
+  my_putstr("\a");
+  coo_map->nb_touch++;
   return (0);
 }
 
@@ -51,5 +53,7 @@ int	p_up(t_coo *coo_map, char ***map)
   (*map)[coo_map->player_y - 1][coo_map->player_x] = 'P';
   (*map)[coo_map->player_y][coo_map->player_x] = car_tmp;
   coo_map->player_y--;
+  coo_map->nb_touch++;
+  my_putstr("\a");
   return (0);
 }

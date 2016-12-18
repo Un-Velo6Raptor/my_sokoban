@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Dec 11 19:31:01 2016 
-** Last update Thu Dec 15 16:47:23 2016 
+** Last update Sat Dec 17 21:54:01 2016 
 */
 
 #include	<sys/stat.h>
@@ -84,25 +84,52 @@ char		**make_tab(char *str, t_coo *coo_map)
   return (tmp);
 }
 
+int		loop_map(char *str, char **map, t_coo *coo_map, int idx)
+{
+  int		tmp;
+
+  tmp = 0;
+  if ((coo_map = malloc(sizeof(t_coo) * 1)) == NULL)
+    return (84);
+  if ((map = make_tab(str, coo_map)) == NULL)
+    return (my_puterror("Bad map\n"));
+  if (check_map(map) == 1)
+    return (my_puterror("Bad map\n"));
+  ini_map(coo_map, map);
+  ini_struct(coo_map, map);
+  if (coo_map->nb_ligne < 2 || coo_map->lenght < 2)
+    return (my_puterror("Bad map\n"));
+  tmp = start_the_game(coo_map, map, idx);
+  free_tab(map);
+  free(coo_map);
+  return (tmp);
+}
+
 int		main(int argc, char **argv)
 {
   char		**map;
   t_coo		*coo_map;
+  int		idx;
+  int		result;
 
+  idx = 1;
   map = NULL;
-  if (argc != 2)
+  result = 0;
+  if (argc < 2)
     return (84);
   if (my_strcmp(argv[1], "-h") == 0)
     return (disp_help());
-  if ((coo_map = malloc(sizeof(t_coo) * 1)) == NULL)
-    return (84);
-  if ((map = make_tab(argv[1], coo_map)) == NULL)
-    return (84);
-  if (check_map(map) == 1)
-    return (84);
-  ini_map(coo_map, map);
-  ini_struct(coo_map, map);
-  if (coo_map->nb_ligne < 2 || coo_map->lenght < 2)
-    return (84);
-  return (start_the_game(coo_map, map));
+  while (argv[idx] != NULL)
+    {
+      if ((result = loop_map(argv[idx], map, coo_map, idx)) == 84)
+	return (84);
+      if (result == 1)
+	{
+	  one_music("music/loose.ogg", 2);
+	  return (1);
+	}
+      idx++;
+    }
+  one_music("music/win.ogg", 1);
+  return (0);
 }
