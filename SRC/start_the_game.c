@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Mon Dec 12 17:40:37 2016 
-** Last update Sun Dec 18 15:35:05 2016 
+** Last update Sun Dec 18 17:10:47 2016 
 */
 
 #include	<ncurses.h>
@@ -101,6 +101,7 @@ int		start_the_game(t_coo *coo_map, char **map)
   int		tmp;
 
   window = initscr();
+  (void)window;
   curs_set(FALSE);
   noecho();
   keypad(stdscr, TRUE);

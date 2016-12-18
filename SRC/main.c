@@ -5,7 +5,7 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Sun Dec 11 19:31:01 2016 
-** Last update Thu Dec 15 16:47:23 2016 
+** Last update Sun Dec 18 17:10:20 2016 
 */
 
 #include	<sys/stat.h>
@@ -38,10 +38,8 @@ int		nb_ligne(char *str)
   char		buffer[1024];
   int		fd;
   int		size;
-  int		idx;
   int		nb;
 
-  idx = 0;
   nb = 0;
   if ((fd = open(str, O_RDONLY)) == -1)
     return (-1);
