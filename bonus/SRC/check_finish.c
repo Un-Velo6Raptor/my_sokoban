@@ -5,26 +5,32 @@
 ** Login   <martin.januario@epitech.eu>
 ** 
 ** Started on  Tue Dec 13 15:00:40 2016 
-** Last update Tue Dec 13 18:04:15 2016 
+** Last update Tue Dec 20 09:59:33 2016 
 */
 
 #include	<stdlib.h>
 #include	"my.h"
 #include	"sokoban.h"
 
-int	check_pos_x(char **map, int y, int x, char **save)
+int	check_pos_x(char **map, int y, int x, t_coo *coo_map)
 {
-  if ((map[y][x + 1] == 'X' || map[y][x + 1] == '#') &&
-      (map[y + 1][x] == 'X' || map[y + 1][x] == '#'))
+  if ((x + 1 >= coo_map->lenght || map[y][x + 1] == '\n' ||
+       map[y][x + 1] == '\0' || map[y][x + 1]  == 'X' || map[y][x + 1] == '#')
+      && (y + 1 >= coo_map->nb_ligne || my_strlen(map[y + 1]) < x ||
+	  map[y + 1][x] == 'X' || map[y + 1][x] == '#'))
     return (0);
-  if ((map[y + 1][x] == 'X' || map[y + 1][x] == '#') &&
-      (map[y][x - 1] == 'X' || map[y][x - 1] == '#'))
+  if ((y + 1 >= coo_map->nb_ligne || my_strlen(map[y + 1]) < x ||
+       map[y + 1][x] == 'X' || map[y + 1][x] == '#') &&
+      (x - 1 < 0 || map[y][x - 1] == 'X' || map[y][x - 1] == '#'))
     return (0);
-  if ((map[y][x - 1] == 'X' || map[y][x - 1] == '#') &&
-      (map[y - 1][x] == 'X' || map[y - 1][x] == '#'))
+  if ((x - 1 < 0 || map[y][x - 1] == 'X' || map[y][x - 1] == '#') &&
+      (y - 1 < 0 || my_strlen(map[y - 1]) < x ||
+       map[y - 1][x] == 'X' || map[y - 1][x] == '#'))
     return (0);
-  if ((map[y][x + 1] == 'X' || map[y][x + 1] == '#') &&
-      (map[y - 1][x] == 'X' || map[y - 1][x] == '#'))
+  if ((x + 1 >= coo_map->lenght || map[y][x + 1] == '\n' ||
+       map[y][x + 1] == '\0' || map[y][x + 1] == 'X' || map[y][x + 1] == '#')
+      && (y - 1 < 0 || my_strlen(map[y - 1]) < x ||
+       map[y - 1][x] == 'X' || map[y - 1][x] == '#'))
     return (0);
   return (1);
 }
@@ -41,7 +47,7 @@ int	check_block(t_coo *coo_map, char **map)
       while (map[idx][idx2] != '\0')
 	{
 	  if (map[idx][idx2] == 'X')
-	    if (check_pos_x(map, idx, idx2, coo_map->save) == 1)
+	    if (check_pos_x(map, idx, idx2, coo_map) == 1)
 	      return (0);
 	  idx2++;
 	}
